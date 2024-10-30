@@ -184,12 +184,16 @@ namespace data_struct
             return cend();
         }
 
-        void erase (T const& value) noexcept {
+        void erase (T const& value) {
             if (auto it = find (value); it != end()) {
                 auto [bucketIt, prevIt] = it.real();
 
                 bucketIt->erase_after (prevIt);
                 --size_;
+            } else {
+                throw std::runtime_error (
+                    "элемент " + value + " отстутствует\n"
+                );
             }
         }
 
